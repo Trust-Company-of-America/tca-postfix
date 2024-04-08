@@ -53,6 +53,7 @@ class postfix::params {
         {
           $manage_mastercf_default=true
           $postfix_ver='3.3.1'
+          $mailclient=[ 's-nail' ]
         }
         default: { fail('Unsupported RHEL/CentOS version!')  }
       }
