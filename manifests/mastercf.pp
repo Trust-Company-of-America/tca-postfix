@@ -723,6 +723,7 @@ class postfix::mastercf(
             command => 'scache',
             order   => '24',
           }
+        }
         /^9.*$/:
         {
           # smtp      inet  n       -       n       -       -       smtpd
@@ -975,7 +976,6 @@ class postfix::mastercf(
             command => 'scache',
             order   => '24',
           }
-
         }
         default: { fail('Unsupported RHEL/CentOS version!')  }
       }
