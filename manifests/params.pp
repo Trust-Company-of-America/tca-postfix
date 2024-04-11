@@ -20,8 +20,6 @@ class postfix::params {
 
       $purge_default_mta=[ 'exim', 'sendmail' ]
 
-      $mailclient=[ 'mailx' ]
-
       $readme_directory_default = false
 
       $postfix_username_uid_default='89'
@@ -33,21 +31,31 @@ class postfix::params {
         {
           $manage_mastercf_default=false
           $postfix_ver='2.3.3'
+          $mailclient=[ 'mailx' ]
         }
         /^6.*$/:
         {
           $manage_mastercf_default=true
           $postfix_ver='2.6.6'
+          $mailclient=[ 'mailx' ]
         }
         /^7.*$/:
         {
           $manage_mastercf_default=true
           $postfix_ver='2.10.1'
+          $mailclient=[ 'mailx' ]
         }
         /^8.*$/:
         {
           $manage_mastercf_default=true
           $postfix_ver='3.3.1'
+          $mailclient=[ 'mailx' ]
+        }
+        /^9.*$/:
+        {
+          $manage_mastercf_default=true
+          $postfix_ver='3.3.1'
+          $mailclient=[ 's-nail' ]
         }
         default: { fail('Unsupported RHEL/CentOS version!')  }
       }
