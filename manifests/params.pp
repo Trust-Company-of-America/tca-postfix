@@ -6,7 +6,7 @@ class postfix::params {
 
   # $package_postfix_utils = 'postfix-perl-scripts'
 
-  case $::osfamily
+  case $facts['os']['family']
   {
     'redhat':
     {
@@ -25,7 +25,7 @@ class postfix::params {
       $postfix_username_uid_default='89'
       $postfix_username_gid_default='89'
 
-      case $::operatingsystemrelease
+      case $facts['os']['release']['full']
       {
         /^5.*$/:
         {
@@ -62,7 +62,7 @@ class postfix::params {
     }
     'Debian':
     {
-      case $::operatingsystem
+      case $facts['os']['name']
       {
         'Ubuntu':
         {
@@ -108,17 +108,17 @@ class postfix::params {
           }
           else
           {
-            $postfix_username_uid_default = $::eyp_postfix_uid ? {
+            $postfix_username_uid_default = $facts['eyp_postfix_uid'] ? {
               undef   => '89',
-              default => $::eyp_postfix_uid,
+              default => $facts['eyp_postfix_uid'],
             }
-            $postfix_username_gid_default = $::eyp_postfix_gid ? {
+            $postfix_username_gid_default = $facts['eyp_postfix_gid'] ? {
               undef   => '89',
-              default => $::eyp_postfix_gid,
+              default => $facts['eyp_postfix_gid'],
             }
           }
 
-          case $::operatingsystemrelease
+          case $facts['os']['release']['full']
           {
             /^14.*$/:
             {
@@ -144,7 +144,7 @@ class postfix::params {
               $postfix_ver='3.4.10'
               $compatibility_level_default=2
             }
-            default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
+            default: { fail("Unsupported Ubuntu version! - ${facts['os']['release']['full']}")  }
           }
         }
         'Debian': { fail('Unsupported')  }
@@ -171,11 +171,11 @@ class postfix::params {
       $postfix_username_uid_default='51'
       $postfix_username_gid_default='51'
 
-      case $::operatingsystem
+      case $facts['os']['name']
       {
         'SLES':
         {
-          case $::operatingsystemrelease
+          case $facts['os']['release']['full']
           {
             '11.3':
             {
@@ -185,10 +185,10 @@ class postfix::params {
             {
               $postfix_ver='3.2.0'
             }
-            default: { fail("Unsupported operating system ${::operatingsystem} ${::operatingsystemrelease}") }
+            default: { fail("Unsupported operating system ${facts['os']['name']} ${facts['os']['release']['full']}") }
           }
         }
-        default: { fail("Unsupported operating system ${::operatingsystem}") }
+        default: { fail("Unsupported operating system ${facts['os']['name']}") }
       }
     }
     default: { fail('Unsupported OS!')  }
