@@ -24,12 +24,12 @@
 # 02 - other defaults
 #
 class postfix (
-                $smtpdbanner                         = "${::hostname} ESMTP",
-                $mydestination                       = [ $::fqdn, 'localhost' ],
-                $mydomain                            = $::domain,
-                $myhostname                          = $::hostname,
+                $smtpdbanner                         = "${facts['networking']['hostname']} ESMTP",
+                $mydestination                       = [ $facts['networking']['fqdn'], 'localhost' ],
+                $mydomain                            = $facts['networking']['domain'],
+                $myhostname                          = $facts['networking']['hostname'],
                 $mynetworks                          = [ '127.0.0.1' ],
-                $myorigin                            = $::domain,
+                $myorigin                            = $facts['networking']['domain'],
                 $inetinterfaces                      = 'loopback-only',
                 $mail_spool_directory                = '/var/mail',
                 $append_dot_mydomain                 = undef,

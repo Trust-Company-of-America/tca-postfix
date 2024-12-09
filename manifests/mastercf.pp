@@ -3,13 +3,13 @@ class postfix::mastercf(
                           $default_smtpd_args         = undef,
                         )  inherits postfix::params {
 
-  case $::osfamily
+  case $facts['os']['family']
   {
     'redhat':
     {
       $setgid_group_default='postdrop'
 
-      case $::operatingsystemrelease
+      case $facts['os']['release']['full']
       {
         /^5.*$/:
         {
@@ -982,19 +982,19 @@ class postfix::mastercf(
     }
     'Debian':
     {
-      case $::operatingsystem
+      case $facts['os']['name']
       {
         'Ubuntu':
         {
           $setgid_group_default='postdrop'
 
-          case $::operatingsystemrelease
+          case $facts['os']['release']['full']
           {
             /^14.*$/:
             {
               fail('unimplemented')
             }
-            default: { fail("Unsupported Ubuntu version! - ${::operatingsystemrelease}")  }
+            default: { fail("Unsupported Ubuntu version! - ${facts['os']['release']['full']}")  }
           }
         }
         'Debian': { fail('Unsupported')  }
@@ -1005,20 +1005,20 @@ class postfix::mastercf(
     {
       $setgid_group_default='maildrop'
 
-      case $::operatingsystem
+      case $facts['os']['name']
       {
         'SLES':
         {
-          case $::operatingsystemrelease
+          case $facts['os']['release']['full']
           {
             '11.3':
             {
 
             }
-            default: { fail("Unsupported operating system ${::operatingsystem} ${::operatingsystemrelease}") }
+            default: { fail("Unsupported operating system ${facts['os']['name']} ${facts['os']['release']['full']}") }
           }
         }
-        default: { fail("Unsupported operating system ${::operatingsystem}") }
+        default: { fail("Unsupported operating system ${facts['os']['name']}") }
       }
     }
     default: { fail('Unsupported OS!')  }
