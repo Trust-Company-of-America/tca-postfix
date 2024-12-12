@@ -94,8 +94,7 @@ class postfix::params {
                   default => $::facts['eyp_postfix_uid'],
                 }
               }
-              else
-              {
+              else {
                 $postfix_username_uid_default = '89'
               }
 
@@ -166,7 +165,7 @@ class postfix::params {
 
         $purge_default_mta= ['sendmail']
 
-        $mailclient=['mailx']
+        $mailclient= ['mailx']
 
         $readme_directory_default=false
 
